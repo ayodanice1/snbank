@@ -3,7 +3,7 @@ class DataFileScraper(object):
 	def __init__(self, dataFile):
 		self.dataFile = dataFile
 
-	def retrieveCredentials(self):
+	def retrieveCredentials(self, data_type):
 		"""
 		This method takes a data file, extract its contents. From the extracted content,
 		it then builds the individual credentials into a dictionary.
@@ -15,9 +15,14 @@ class DataFileScraper(object):
 
 		for data_object in data_objects:
 			item_object = self.buildCredential(data_object)
-			head = item_object['username'] or item_object['accountnumber']
-			del item_object['username']
-			item_objects[head] = item_object
+			if data_type == 'staff':
+				head = item_object['username']
+				del item_object['username']
+				item_objects[head] = item_object
+			elif data_type == 'customer':
+				head = item_object['accountnumber']
+				del item_object['accountnumber']
+				item_objects[head] = item_object
 		
 		return item_objects
 
@@ -56,7 +61,7 @@ class BankingApp(object):
 		self.staffs_data_file = '../datastore/staff.txt'
 		self.staffData = DataFileScraper(self.staffs_data_file)
 		self.customerData = DataFileScraper(self.customers_data_file)
-		self.staff_credentials = self.staffData.retrieveCredentials()
+		self.staff_credentials = self.staffData.retrieveCredentials('staff')
 		self.username = username
 		self.password = password
 
@@ -77,13 +82,14 @@ class BankingApp(object):
 				self.createCustomerAccount()
 			elif user_option == 2:
 				accountnumber = input("Enter the accountnumber: ")
-				self.getACustomerInfo(accountnumber)
+				account = self.getACustomerInfo(accountnumber)
+				for field in account:
+					print(f'{field}: {account[field]}')
+				self.useApp()
 			elif user_option == 3:
 				import os
 				os.remove(f'../datastore/{self.username}_session.txt')
 				print("\nStaff log out successful.")
-				return
-		self.useApp()
 
 	def verifyLogin(self):
 		staff = self.staff_credentials[self.username]
@@ -97,11 +103,11 @@ class BankingApp(object):
 		return self.staff_credentials
 
 	def getCustomersInfo(self):
-		customer_accounts = self.customerData.retrieveCredentials()
+		customer_accounts = self.customerData.retrieveCredentials('customer')
 		return customer_accounts
 
 	def getACustomerInfo(self, accountnumber):
-		customer_accounts = self.customerData.retrieveCredentials()
+		customer_accounts = self.customerData.retrieveCredentials('customer')
 		try:
 			customer_accounts[accountnumber]
 		except:
@@ -126,6 +132,7 @@ class BankingApp(object):
 			f.write(f'lastname : {lastname} ,\n')
 			f.write(f'accounttype : {accounttype} ,\n')
 			f.write(f'email : {email} ,\n')
+			f.write(f'openingbalance : {openingbalance} ,\n')
 			f.write('}\n')
 			f.write(',')
 			f.close()
@@ -170,14 +177,14 @@ def main():
 		if user_option == 1:
 			username = input("Enter username: ")
 			password = input("Enter password: ")
+			bankingApp = BankingApp(username, password)
+			if (bankingApp.verifyLogin()):
+				bankingApp.useApp()
+				main()
+			else:
+				print("Invalid credentials! Try again")
+				main()
 		elif user_option == 2: print("Application stopped and closing down...")
-	bankingApp = BankingApp(username, password)
-	if (bankingApp.verifyLogin()):
-		bankingApp.useApp()
-		main()
-	else:
-		print("Invalid credentials! Try again")
-		main()
 
 
 main()
