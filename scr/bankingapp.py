@@ -94,8 +94,6 @@ class BankingApp(object):
 	def verifyLogin(self):
 		staff = self.staff_credentials[self.username]
 		if staff['password'] == self.password:
-			f = open(f'../datastore/{self.username}_session.txt', 'w+')
-			f.close()
 			return True
 		else: return False
 
@@ -133,8 +131,7 @@ class BankingApp(object):
 			f.write(f'accounttype : {accounttype} ,\n')
 			f.write(f'email : {email} ,\n')
 			f.write(f'openingbalance : {openingbalance} ,\n')
-			f.write('}\n')
-			f.write(',')
+			f.write('} ,')
 			f.close()
 		print(f"New customer account number is '{accountnumber}'.")
 		self.useApp()
@@ -179,6 +176,10 @@ def main():
 			password = input("Enter password: ")
 			bankingApp = BankingApp(username, password)
 			if (bankingApp.verifyLogin()):
+				from datetime import datetime
+				f = open(f'../datastore/{username}_session.txt', 'w+')
+				f.write(f'@ {datetime.now()}: {username} logged in.')
+				f.close()
 				bankingApp.useApp()
 				main()
 			else:
