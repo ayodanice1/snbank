@@ -1,0 +1,15 @@
+{
+	username : ayodanice1 ,
+	password : lawalayodele ,
+	email : ayodanice1@gmail.com ,
+	firstname : ayodele ,
+	lastname : lawal ,
+} ,
+
+{
+	username : mikky ,
+	password : mikearemu ,
+	email : mikky@gmail.com ,
+	firstname : mike ,
+	lastname : aremu ,
+} ,
