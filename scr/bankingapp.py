@@ -94,10 +94,6 @@ class BankingApp(object):
 	def verifyLogin(self):
 		staff = self.staff_credentials[self.username]
 		if staff['password'] == self.password:
-			from datetime import datetime
-			f = open(f'../datastore/{self.username}_session.txt', 'w+')
-			f.write(f'@{datetime.now()}: {self.username} logged in.')
-			f.close()
 			return True
 		else: return False
 
@@ -180,6 +176,10 @@ def main():
 			password = input("Enter password: ")
 			bankingApp = BankingApp(username, password)
 			if (bankingApp.verifyLogin()):
+				from datetime import datetime
+				f = open(f'../datastore/{username}_session.txt', 'w+')
+				f.write(f'@ {datetime.now()}: {username} logged in.')
+				f.close()
 				bankingApp.useApp()
 				main()
 			else:
