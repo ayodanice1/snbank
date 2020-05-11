@@ -14,18 +14,35 @@ At successful login, the user is presented with options to create a new customer
 Below are screen shots of the working app
 
 ## Screenshots of Working App
+
+![staff_login_credentials](https://user-images.githubusercontent.com/32728256/81540268-4b284180-9369-11ea-97a7-3f379969c6ae.png)
+
+Staff login details
+
 ![snbank_landing](https://user-images.githubusercontent.com/32728256/81260610-40e90900-9032-11ea-8304-a2110387dae7.png)
+
 App landing page
 
 ![successfull_login](https://user-images.githubusercontent.com/32728256/81260661-5a8a5080-9032-11ea-9c17-9aedaae67b68.png)
+
 Successful staff login
 
 ![successfull_accout_creation](https://user-images.githubusercontent.com/32728256/81260695-70981100-9032-11ea-8db6-6180ecbe1553.png)
+
 Successful customer account creation
 
 ![check_account_details](https://user-images.githubusercontent.com/32728256/81260756-8d344900-9032-11ea-9385-9d0385ee5554.png)
-Check Customer Account details
 
+Check Customer Account details action
 
 ![staff_logout_and_close_app](https://user-images.githubusercontent.com/32728256/81260789-a1784600-9032-11ea-9c0f-7b8fcd3557ed.png)
+
 Logout and Close App
+
+![a_user_session](https://user-images.githubusercontent.com/32728256/81540153-23d17480-9369-11ea-93c3-35ad5c1d520c.png)
+
+An example of user in session
+
+![an_account_details](https://user-images.githubusercontent.com/32728256/81540208-35b31780-9369-11ea-9e2d-9cbc3d81428b.png)
+
+An example of a customer account
